@@ -8,4 +8,7 @@ interface TvShowService {
 
     @GET("tv/popular")
     suspend fun fetchPopularTvShows(@Query("page") page: Int): TvShowResponse
+
+    @GET("search/tv")
+    suspend fun searchTvShows(@Query("query") query: String, @Query("page") page: Int): TvShowResponse
 }

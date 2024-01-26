@@ -1,23 +1,16 @@
 package dev.arch3rtemp.tvshows.presentation.home
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.arch3rtemp.tvshows.R
 import dev.arch3rtemp.tvshows.databinding.FragmentHomeBinding
+import dev.arch3rtemp.tvshows.presentation.commonui.DebounceQueryTextListener
 import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseFragment
 import dev.arch3rtemp.tvshows.presentation.commonui.customview.PaginationRecyclerView
 import dev.arch3rtemp.tvshows.presentation.util.Constants
@@ -62,41 +55,25 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     override fun renderEffect(effect: HomeContract.Effect) {
         when(effect) {
             is HomeContract.Effect.ShowSnackBar -> showSnackbar(effect.message.asString(requireContext()), SnackbarStatusCodes.ERROR)
-            is HomeContract.Effect.FilterTvShows -> TODO()
         }
     }
 
     private fun setupToolbar() = with(binding) {
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Inflate the menu
-                menuInflater.inflate(R.menu.menu_search, menu)
 
-                // Find the search item
-                val searchItem = menu.findItem(R.id.action_search)
+        // Find the search item and set up the SearchView
+        val searchItem = toolbar.menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(
+            DebounceQueryTextListener(
+                lifecycle = viewLifecycleOwner.lifecycle,
+                onDebounceQueryTextChange = { query ->
+                    searchQuery(query)
+                    searchView.clearFocus()
+                }))
+    }
 
-                // Get the SearchView and set up the search logic
-                val searchView = searchItem.actionView as SearchView
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        // Pass query to ViewModel
-                        query?.let { viewModel.setEvent(HomeContract.Event.OnSearchQuerySubmitted(it)) }
-                        searchView.clearFocus()
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        // Optional: Handle query text change if needed
-                        return true
-                    }
-                })
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return false // No menu item action handling needed
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    private fun searchQuery(query: String) {
+        viewModel.setEvent(HomeContract.Event.OnSearchQuerySubmitted(query, Constants.FIRST_PAGE))
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -106,7 +83,7 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
             adapter = tvShowAdapter
             setOnPageChangeListener(object : PaginationRecyclerView.OnPageChangeListener {
                 override fun onPageChange(page: Int) {
-                    viewModel.setEvent(HomeContract.Event.OnLoadTvShows(page))
+                    viewModel.setEvent(HomeContract.Event.OnLoadTvShows(page, false))
                 }
             })
         }
@@ -114,7 +91,13 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
 
     private fun setListeners() {
         binding.swipe.setOnRefreshListener {
-            viewModel.setEvent(HomeContract.Event.OnLoadTvShows(Constants.FIRST_PAGE))
+            viewModel.setEvent(HomeContract.Event.OnLoadTvShows(Constants.FIRST_PAGE, true))
+            binding.swipe.isRefreshing = false
+            val searchItem = binding.toolbar.menu.findItem(R.id.action_search)
+            val searchView = searchItem.actionView as SearchView
+            if (!searchView.isIconified) {
+                searchItem.collapseActionView()
+            }
         }
     }
 

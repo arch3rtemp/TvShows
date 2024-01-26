@@ -16,13 +16,12 @@ class HomeContract {
     }
 
     sealed interface Event : UiEvent {
-        data class OnLoadTvShows(val page: Int) : Event
-        data class OnSearchQuerySubmitted(val query: String) : Event
+        data class OnLoadTvShows(val page: Int, val isRefreshing: Boolean) : Event
+        data class OnSearchQuerySubmitted(val query: String, val page: Int) : Event
     }
 
     sealed interface Effect : UiEffect {
         data class ShowSnackBar(val message: UiText) : Effect
-        data class FilterTvShows(val tvShows: List<TvShow>) : Effect
     }
 
     data class State(val homeViewState: HomeViewState) : UiState

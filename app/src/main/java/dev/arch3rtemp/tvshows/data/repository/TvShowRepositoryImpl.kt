@@ -25,4 +25,17 @@ class TvShowRepositoryImpl @Inject constructor(
             Resource.Exception(e)
         }
     }
+
+    override suspend fun searchTvShows(query: String, page: Int): Resource<List<TvShow>> {
+        return try {
+            val response = tvShowRemoteSource.searchTvShows(query, page)
+            val tvShowList = response.results
+
+            Resource.Success(tvShowDtoDomainMapper.fromList(tvShowList))
+        } catch (e: HttpException) {
+            Resource.Error(e.code(), e.message())
+        } catch (e: Exception) {
+            Resource.Exception(e)
+        }
+    }
 }
