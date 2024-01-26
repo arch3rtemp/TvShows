@@ -1,0 +1,54 @@
+[versions]
+gradleplugin = "8.2.2"
+kotlin = '1.9.22'
+espresso = '3.5.1'
+retrofit = '2.9.0'
+dagger = '2.50'
+ksp = '1.9.22-1.0.17'
+moshi = '1.14.0'
+coil = '2.5.0'
+room = '2.6.1'
+shimmer = '0.5.0'
+splash = '1.0.1'
+palette = '1.0.0'
+swiperefreshlayout = "1.1.0"
+fragment = '1.6.2'
+
+[libraries]
+core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
+appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
+fragment-testing = { module = "androidx.fragment:fragment-testing", version = "1.6.2" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+ext-junit = { module = "androidx.test.ext:junit", version = '1.1.5' }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espresso" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
+pallete = { module = "androidx.palette:palette-ktx", version.ref = "palette" }
+material = { module = "com.google.android.material:material", version = "1.11.0" }
+dagger2 = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger2-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+junit = { module = "junit:junit", version = '4.13.2' }
+retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "4.1.0" }
+robolectric = { module = "org.robolectric:robolectric", version = "4.9.2" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradleplugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt-android = { id = "dagger.hilt.android.plugin" }
