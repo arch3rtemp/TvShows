@@ -21,7 +21,6 @@ class HomeViewHolder(
                 tvVoteAverage.text = rating.toString()
                 ivMovie.load(formatImageUrl(tvShow.posterPath)) {
                     crossfade(true)
-                    transformations(CircleCropTransformation())
                 }
                 cardView.setOnClickListener { clickListener(tvShow.id) }
             }
