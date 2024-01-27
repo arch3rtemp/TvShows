@@ -1,4 +1,4 @@
-package dev.arch3rtemp.tvshows.common
+package dev.arch3rtemp.common.mapper
 
 interface Mapper<I, O> {
     fun from(i: I?): O

@@ -1,22 +1,9 @@
-package dev.arch3rtemp.tvshows.util
+package dev.arch3rtemp.tvshows.presentation.util
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import dev.arch3rtemp.tvshows.R
-import kotlin.math.round
-
-fun Double.roundToTenth(): Double {
-    return round(this * 10) / 10
-}
-
-fun formatErrorMessage(code: Int, message: String?): String {
-    return "Error code: $code\nError Message: ${message ?: "Empty"}"
-}
-
-fun formatImageUrl(partialUrl: String): String {
-    return "https://image.tmdb.org/t/p/w500$partialUrl"
-}
 
 fun Fragment.showSnackbar(message: String, status: SnackbarStatusCodes) {
 
@@ -37,4 +24,7 @@ fun Fragment.showSnackbar(message: String, status: SnackbarStatusCodes) {
         view.setBackgroundColor(ContextCompat.getColor(requireActivity(), color))
         show()
     }
+}
+enum class SnackbarStatusCodes {
+    ERROR, SUCCESS
 }

@@ -1,3 +1,3 @@
-package com.arch3rtemp.android.moviesapp.util
+package dev.arch3rtemp.tvshows.presentation.commonui
 
 interface UiEffect

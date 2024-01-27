@@ -2,13 +2,12 @@ package dev.arch3rtemp.tvshows.presentation.home
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.arch3rtemp.tvshows.common.Resource
+import dev.arch3rtemp.common.util.formatErrorMessage
 import dev.arch3rtemp.tvshows.domain.interactor.GetPopularTvShowsInteractor
 import dev.arch3rtemp.tvshows.domain.interactor.SearchTvShowsInteractor
 import dev.arch3rtemp.tvshows.domain.model.TvShow
 import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseViewModel
 import dev.arch3rtemp.tvshows.presentation.util.Constants
-import dev.arch3rtemp.tvshows.util.formatErrorMessage
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,9 +50,11 @@ class HomeViewModel @Inject constructor(
             }
 
             when(val result = getPopularTvShowsInteractor(page)) {
-                is Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(formatErrorMessage(result.code, result.message))) }
-                is Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(result.e.localizedMessage)) }
-                is Resource.Success -> {
+                is dev.arch3rtemp.common.util.Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
+                    formatErrorMessage(result.code, result.message)
+                )) }
+                is dev.arch3rtemp.common.util.Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(result.e.localizedMessage)) }
+                is dev.arch3rtemp.common.util.Resource.Success -> {
 
                     if (totalSearchedTvShows.isNotEmpty()) {
                         setState { copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows)) }
@@ -84,9 +85,11 @@ class HomeViewModel @Inject constructor(
             }
 
             when(val result = searchTvShowsInteractor(query, page)) {
-                is Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(formatErrorMessage(result.code, result.message))) }
-                is Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(result.e.localizedMessage)) }
-                is Resource.Success -> {
+                is dev.arch3rtemp.common.util.Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
+                    formatErrorMessage(result.code, result.message)
+                )) }
+                is dev.arch3rtemp.common.util.Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(result.e.localizedMessage)) }
+                is dev.arch3rtemp.common.util.Resource.Success -> {
                     totalSearchedTvShows = totalSearchedTvShows + result.data
                     setState { copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows)) }
                 }

@@ -1,6 +1,6 @@
 package dev.arch3rtemp.tvshows.data.repository
 
-import dev.arch3rtemp.tvshows.common.Resource
+import dev.arch3rtemp.common.util.Resource
 import dev.arch3rtemp.tvshows.data.mapper.TvShowDtoDomainMapper
 import dev.arch3rtemp.tvshows.data.remote.source.TvShowRemoteSource
 import dev.arch3rtemp.tvshows.domain.model.TvShow

@@ -9,8 +9,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
-import com.arch3rtemp.android.moviesapp.util.UiEffect
-import com.arch3rtemp.android.moviesapp.util.UiEvent
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEffect
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEvent
 import dev.arch3rtemp.tvshows.presentation.commonui.UiState
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,7 @@
 package dev.arch3rtemp.tvshows.presentation.home
 
-import com.arch3rtemp.android.moviesapp.util.UiEffect
-import com.arch3rtemp.android.moviesapp.util.UiEvent
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEffect
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEvent
 import dev.arch3rtemp.tvshows.domain.model.TvShow
 import dev.arch3rtemp.tvshows.presentation.commonui.UiState
 

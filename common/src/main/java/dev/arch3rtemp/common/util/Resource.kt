@@ -1,4 +1,4 @@
-package dev.arch3rtemp.tvshows.common
+package dev.arch3rtemp.common.util
 
 sealed interface Resource<out T> {
     data class Success<T : Any>(val data: T) : Resource<T>

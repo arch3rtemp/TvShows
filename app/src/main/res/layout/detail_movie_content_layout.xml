@@ -86,5 +86,4 @@
         tools:listitem="@layout/actor_view_layout"
         tools:orientation="horizontal" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 [versions]
 gradleplugin = "8.2.2"
 kotlin = '1.9.22'
+java = '17'
 espresso = '3.5.1'
 retrofit = '2.9.0'
 dagger = '2.50'
@@ -48,7 +49,7 @@ coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "gradleplugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-hilt-android = { id = "dagger.hilt.android.plugin" }
+com-android-application = { id = "com.android.application", version.ref = "gradleplugin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

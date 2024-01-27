@@ -14,8 +14,8 @@ import dev.arch3rtemp.tvshows.presentation.commonui.DebounceQueryTextListener
 import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseFragment
 import dev.arch3rtemp.tvshows.presentation.commonui.customview.PaginationRecyclerView
 import dev.arch3rtemp.tvshows.presentation.util.Constants
-import dev.arch3rtemp.tvshows.util.SnackbarStatusCodes
-import dev.arch3rtemp.tvshows.util.showSnackbar
+import dev.arch3rtemp.tvshows.presentation.util.SnackbarStatusCodes
+import dev.arch3rtemp.tvshows.presentation.util.showSnackbar
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeContract.Effect, FragmentHomeBinding, HomeViewModel>() {

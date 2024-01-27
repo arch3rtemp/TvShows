@@ -2,8 +2,8 @@ package dev.arch3rtemp.tvshows.presentation.commonui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arch3rtemp.android.moviesapp.util.UiEffect
-import com.arch3rtemp.android.moviesapp.util.UiEvent
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEffect
+import dev.arch3rtemp.tvshows.presentation.commonui.UiEvent
 import dev.arch3rtemp.tvshows.presentation.commonui.UiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow

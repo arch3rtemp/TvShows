@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dev.arch3rtemp.tvshows.common.Mapper
+import dev.arch3rtemp.common.mapper.Mapper
 import dev.arch3rtemp.tvshows.data.mapper.TvShowDtoDomainMapper
 import dev.arch3rtemp.tvshows.data.remote.response.TvShowDto
 import dev.arch3rtemp.tvshows.domain.model.TvShow

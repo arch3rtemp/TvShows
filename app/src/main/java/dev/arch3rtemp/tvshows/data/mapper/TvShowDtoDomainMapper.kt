@@ -1,12 +1,13 @@
 package dev.arch3rtemp.tvshows.data.mapper
 
-import dev.arch3rtemp.tvshows.common.Mapper
-import dev.arch3rtemp.tvshows.common.Mapper.Companion.ABSENT_NUMERAL
+import dev.arch3rtemp.common.mapper.Mapper
+import dev.arch3rtemp.common.mapper.Mapper.Companion.ABSENT_NUMERAL
 import dev.arch3rtemp.tvshows.data.remote.response.TvShowDto
 import dev.arch3rtemp.tvshows.domain.model.TvShow
 import javax.inject.Inject
 
-class TvShowDtoDomainMapper @Inject constructor() : Mapper<TvShowDto, TvShow> {
+class TvShowDtoDomainMapper @Inject constructor() :
+    Mapper<TvShowDto, TvShow> {
     override fun from(i: TvShowDto?): TvShow {
         return TvShow(
             id = i?.id ?: ABSENT_NUMERAL,

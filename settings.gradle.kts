@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TvShows"
 include(":app")
- 
+include(":common")
