@@ -50,12 +50,16 @@ class HomeViewModel @Inject constructor(
                 copy(homeViewState = HomeContract.HomeViewState.Loading)
             }
 
-            totalSearchedTvShows = emptyList()
-
             when(val result = getPopularTvShowsInteractor(page)) {
                 is Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(formatErrorMessage(result.code, result.message))) }
                 is Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(result.e.localizedMessage)) }
                 is Resource.Success -> {
+
+                    if (totalSearchedTvShows.isNotEmpty()) {
+                        setState { copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows)) }
+                        return@launch
+                    }
+
                     totalTvShows = if (isRefreshing) {
                         result.data
                     } else {

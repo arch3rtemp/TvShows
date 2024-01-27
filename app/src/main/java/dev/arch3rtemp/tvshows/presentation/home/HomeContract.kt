@@ -4,7 +4,6 @@ import com.arch3rtemp.android.moviesapp.util.UiEffect
 import com.arch3rtemp.android.moviesapp.util.UiEvent
 import dev.arch3rtemp.tvshows.domain.model.TvShow
 import dev.arch3rtemp.tvshows.presentation.commonui.UiState
-import dev.arch3rtemp.tvshows.presentation.commonui.UiText
 
 class HomeContract {
     sealed interface HomeViewState {
@@ -21,7 +20,7 @@ class HomeContract {
     }
 
     sealed interface Effect : UiEffect {
-        data class ShowSnackBar(val message: UiText) : Effect
+        data class ShowSnackBar(val message: String) : Effect
     }
 
     data class State(val homeViewState: HomeViewState) : UiState

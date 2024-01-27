@@ -25,7 +25,7 @@ android {
         FileInputStream(rootProject.file("local.properties")).use {
             localProperties.load(it)
         }
-        buildConfigField("String", "BEARER_TOKEN", "\"${localProperties.getProperty("BEARER_TOKEN")}\"")
+        buildConfigField("String", "BEARER_TOKEN", "\"${localProperties.getProperty("bearer_token")}\"")
     }
 
     buildFeatures {
