@@ -8,11 +8,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import dev.arch3rtemp.common_ui.DebounceQueryTextListener
+import dev.arch3rtemp.common_ui.base.BaseFragment
+import dev.arch3rtemp.common_ui.customview.PaginationRecyclerView
 import dev.arch3rtemp.tvshows.R
 import dev.arch3rtemp.tvshows.databinding.FragmentHomeBinding
-import dev.arch3rtemp.tvshows.presentation.commonui.DebounceQueryTextListener
-import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseFragment
-import dev.arch3rtemp.tvshows.presentation.commonui.customview.PaginationRecyclerView
 import dev.arch3rtemp.tvshows.presentation.util.Constants
 import dev.arch3rtemp.tvshows.presentation.util.SnackbarStatusCodes
 import dev.arch3rtemp.tvshows.presentation.util.showSnackbar
@@ -67,7 +67,8 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
                 lifecycle = viewLifecycleOwner.lifecycle,
                 onDebounceQueryTextChange = { query ->
                     searchQuery(query)
-                }))
+                })
+        )
     }
 
     private fun loadTvShows(isRefreshing: Boolean, page: Int = Constants.FIRST_PAGE) {

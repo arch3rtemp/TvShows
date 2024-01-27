@@ -14,9 +14,6 @@ fun Fragment.showSnackbar(message: String, status: SnackbarStatusCodes) {
         SnackbarStatusCodes.SUCCESS -> {
             R.color.material_color_light_green_A400
         }
-        else -> {
-            throw IllegalArgumentException("Wrong snackbar status!")
-        }
     }
 
     Snackbar.make(this.requireView(), message, Snackbar.LENGTH_SHORT).apply {

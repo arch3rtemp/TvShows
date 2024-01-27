@@ -3,9 +3,9 @@ package dev.arch3rtemp.tvshows.presentation.home
 import coil.load
 import dev.arch3rtemp.common.util.formatImageUrl
 import dev.arch3rtemp.common.util.roundToTenth
+import dev.arch3rtemp.common_ui.base.BaseViewHolder
 import dev.arch3rtemp.tvshows.databinding.TvshowViewLayoutBinding
 import dev.arch3rtemp.tvshows.domain.model.TvShow
-import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseViewHolder
 
 class HomeViewHolder(
     private val binding: TvshowViewLayoutBinding,

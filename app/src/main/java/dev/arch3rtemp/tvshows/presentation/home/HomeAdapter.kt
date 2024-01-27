@@ -3,9 +3,9 @@ package dev.arch3rtemp.tvshows.presentation.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import dev.arch3rtemp.common_ui.base.BaseRVAdapter
 import dev.arch3rtemp.tvshows.databinding.TvshowViewLayoutBinding
 import dev.arch3rtemp.tvshows.domain.model.TvShow
-import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseRVAdapter
 
 class HomeAdapter(private val clickListener: (Int) -> Unit)
     : BaseRVAdapter<TvShow, TvshowViewLayoutBinding, HomeViewHolder>(TV_SHOW_COMPARATOR) {

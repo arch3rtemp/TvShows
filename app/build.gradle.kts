@@ -54,18 +54,12 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":common-ui"))
 
     // androidx
-    implementation(libs.appcompat)
-    implementation(libs.constraintlayout)
-    implementation(libs.core.ktx)
     implementation(libs.swiperefreshlayout)
     implementation(libs.core.splashscreen)
     implementation(libs.pallete)
-    implementation(libs.fragment.ktx)
-
-    // google
-    implementation(libs.material)
 
     // dagger2
 //    implementation(libs.dagger2)
@@ -92,9 +86,6 @@ dependencies {
 
     // coil
     implementation(libs.coil)
-
-    // shimmer
-    implementation(libs.shimmer)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

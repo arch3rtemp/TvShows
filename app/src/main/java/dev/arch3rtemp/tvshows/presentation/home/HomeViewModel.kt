@@ -3,10 +3,10 @@ package dev.arch3rtemp.tvshows.presentation.home
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.arch3rtemp.common.util.formatErrorMessage
+import dev.arch3rtemp.common_ui.base.BaseViewModel
 import dev.arch3rtemp.tvshows.domain.interactor.GetPopularTvShowsInteractor
 import dev.arch3rtemp.tvshows.domain.interactor.SearchTvShowsInteractor
 import dev.arch3rtemp.tvshows.domain.model.TvShow
-import dev.arch3rtemp.tvshows.presentation.commonui.base.BaseViewModel
 import dev.arch3rtemp.tvshows.presentation.util.Constants
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

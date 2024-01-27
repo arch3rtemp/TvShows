@@ -1,9 +1,9 @@
 package dev.arch3rtemp.tvshows.presentation.home
 
-import dev.arch3rtemp.tvshows.presentation.commonui.UiEffect
-import dev.arch3rtemp.tvshows.presentation.commonui.UiEvent
+import dev.arch3rtemp.common_ui.UiEffect
+import dev.arch3rtemp.common_ui.UiEvent
+import dev.arch3rtemp.common_ui.UiState
 import dev.arch3rtemp.tvshows.domain.model.TvShow
-import dev.arch3rtemp.tvshows.presentation.commonui.UiState
 
 class HomeContract {
     sealed interface HomeViewState {

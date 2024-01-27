@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <dev.arch3rtemp.tvshows.presentation.commonui.customview.PaginationRecyclerView
+        <dev.arch3rtemp.common_ui.customview.PaginationRecyclerView
             android:id="@+id/rvTrendingList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +42,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <dev.arch3rtemp.tvshows.presentation.commonui.customview.EmptyView
+    <dev.arch3rtemp.common_ui.customview.EmptyView
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
