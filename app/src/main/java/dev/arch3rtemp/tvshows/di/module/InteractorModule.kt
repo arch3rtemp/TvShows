@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dev.arch3rtemp.tvshows.domain.interactor.GetPopularTvShowsInteractor
-import dev.arch3rtemp.tvshows.domain.interactor.SearchTvShowsInteractor
-import dev.arch3rtemp.tvshows.domain.repository.TvShowRepository
+import dev.arch3rtemp.feature.tvshow.domain.interactor.GetPopularTvShowsInteractor
+import dev.arch3rtemp.feature.tvshow.domain.interactor.SearchTvShowsInteractor
+import dev.arch3rtemp.feature.tvshow.domain.repository.TvShowRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)

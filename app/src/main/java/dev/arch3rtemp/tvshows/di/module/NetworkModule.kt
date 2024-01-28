@@ -7,8 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.arch3rtemp.tvshows.BuildConfig
-import dev.arch3rtemp.tvshows.data.local.converter.RoomJsonConverter
-import dev.arch3rtemp.tvshows.data.remote.service.TvShowService
+import dev.arch3rtemp.tvshows.storage.converter.RoomJsonConverter
+import dev.arch3rtemp.feature.tvshow.data.remote.service.TvShowService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -29,11 +29,11 @@ object NetworkModule {
         .addLast(KotlinJsonAdapterFactory())
         .build()
 
-//    @Provides
-//    @Singleton
-//    fun provideRoomJsonConverter(moshi: Moshi): RoomJsonConverter {
-//        return RoomJsonConverter(moshi)
-//    }
+    @Provides
+    @Singleton
+    fun provideRoomJsonConverter(moshi: Moshi): RoomJsonConverter {
+        return RoomJsonConverter(moshi)
+    }
 
     @Provides
     @Singleton

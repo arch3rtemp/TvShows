@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dev.arch3rtemp.tvshows.data.repository.TvShowRepositoryImpl
-import dev.arch3rtemp.tvshows.domain.repository.TvShowRepository
+import dev.arch3rtemp.feature.tvshow.data.repository.TvShowRepositoryImpl
+import dev.arch3rtemp.feature.tvshow.domain.repository.TvShowRepository
 import javax.inject.Singleton
 
 @Module

@@ -53,13 +53,7 @@ android {
 
 dependencies {
 
-    implementation(project(":common"))
-    implementation(project(":common-ui"))
-
-    // androidx
-    implementation(libs.swiperefreshlayout)
-    implementation(libs.core.splashscreen)
-    implementation(libs.pallete)
+    implementation(project(":navigation"))
 
     // dagger2
 //    implementation(libs.dagger2)
@@ -69,25 +63,5 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
-    // retrofit
-    implementation(libs.retrofit2)
-    implementation(libs.converter.moshi)
-
-    // room
-    implementation(libs.room.runtime)
     ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
-    implementation(libs.room.paging)
-
-    // moshi
-    implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
-
-    // coil
-    implementation(libs.coil)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

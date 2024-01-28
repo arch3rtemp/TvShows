@@ -1,11 +1,11 @@
 package dev.arch3rtemp.tvshows.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import dagger.hilt.android.AndroidEntryPoint
+import dev.arch3rtemp.feature.tvshow.ui.home.HomeFragment
 import dev.arch3rtemp.tvshows.R
-import dev.arch3rtemp.tvshows.presentation.home.HomeFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
