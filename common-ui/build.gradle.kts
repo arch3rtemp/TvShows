@@ -52,9 +52,6 @@ dependencies {
     // google
     api(libs.material)
 
-    // shimmer
-    api(libs.shimmer)
-
     // retrofit
     api(libs.retrofit2)
     api(libs.converter.moshi)

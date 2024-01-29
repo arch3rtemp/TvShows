@@ -14,8 +14,9 @@ The project adopts a multimodular approach and is based on Clean Architecture as
 * **Dagger-Hilt**, for dependency injection.
 * **Moshi**, for JSON conversion.
 * **Coil**, for image downloading.
-* **Room**, for local data storage.
-* **Facebook Shimmer**, for displaying the loading state.
+* **Room***, for local data storage.
+
+\* Database is not implemented yet
 
 ### How to Install and Run the Project
 The project can be cloned from GitHub and executed in Android Studio.
