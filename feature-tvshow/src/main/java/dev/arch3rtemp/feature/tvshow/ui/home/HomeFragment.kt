@@ -42,6 +42,7 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
         setupToolbar()
         setupRecyclerView()
         setListeners()
+        setInitState()
     }
 
     override fun renderState(state: HomeContract.State) {
@@ -128,6 +129,10 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
                 searchItem.collapseActionView()
             }
         }
+    }
+
+    private fun setInitState() {
+        viewModel.setEvent(HomeContract.Event.OnLoadTvShows(Constants.FIRST_PAGE, false))
     }
 
     private fun navigateToDetails(tvShow: TvShowUi) {

@@ -6,7 +6,6 @@ import dev.arch3rtemp.common.util.Resource
 import dev.arch3rtemp.common.util.formatErrorMessage
 import dev.arch3rtemp.common_ui.base.BaseViewModel
 import dev.arch3rtemp.common_ui.customview.EmptyView
-import dev.arch3rtemp.common_ui.util.Constants
 import dev.arch3rtemp.common_ui.util.checkError
 import dev.arch3rtemp.feature.tvshow.domain.interactor.GetPopularTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.domain.interactor.SearchTvShowsInteractor
@@ -35,8 +34,6 @@ class HomeViewModel @Inject constructor(
                 copy(homeViewState = HomeContract.HomeViewState.Error(checkError(throwable)))
             }
         }
-
-        loadTvShows(Constants.FIRST_PAGE, false)
     }
 
     override fun createInitialState(): HomeContract.State {
@@ -76,11 +73,7 @@ class HomeViewModel @Inject constructor(
 
                     if (totalSearchedTvShows.isNotEmpty()) {
                         setState {
-                            copy(
-                                homeViewState = HomeContract.HomeViewState.Success(
-                                    totalSearchedTvShows
-                                )
-                            )
+                            copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows))
                         }
                         return@launch
                     }
