@@ -1,5 +1,6 @@
 package dev.arch3rtemp.feature.tvshow.data.repository
 
+import dev.arch3rtemp.common.exception.NoInternetException
 import dev.arch3rtemp.common.util.Resource
 import dev.arch3rtemp.feature.tvshow.data.local.source.TvShowLocalSource
 import dev.arch3rtemp.feature.tvshow.data.mapper.TvShowDtoDomainMapper
@@ -8,6 +9,9 @@ import dev.arch3rtemp.feature.tvshow.data.remote.source.TvShowRemoteSource
 import dev.arch3rtemp.feature.tvshow.domain.model.TvShow
 import dev.arch3rtemp.feature.tvshow.domain.repository.TvShowRepository
 import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class TvShowRepositoryImpl @Inject constructor(
@@ -26,7 +30,13 @@ class TvShowRepositoryImpl @Inject constructor(
         } catch (e: HttpException) {
             Resource.Error(e.code(), e.message())
         } catch (e: Exception) {
-            Resource.Exception(e)
+            when (e) {
+
+                is UnknownHostException, is SocketTimeoutException, is ConnectException ->
+                    Resource.Exception(NoInternetException(e.message, e.cause))
+
+                else -> Resource.Exception(e)
+            }
         }
     }
 

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import dev.arch3rtemp.common.util.formatImageUrl
@@ -106,7 +105,6 @@ class DetailFragment : BaseFragment<DetailContract.Event, DetailContract.State, 
             updateDetails(tvShow)
         }
         rvSimilarShows.apply {
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = detailAdapter
             setOnPageChangeListener(object : PaginationRecyclerView.OnPageChangeListener {
                 override fun onPageChange(page: Int) {

@@ -5,13 +5,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.arch3rtemp.common.util.Resource
 import dev.arch3rtemp.common.util.formatErrorMessage
 import dev.arch3rtemp.common_ui.base.BaseViewModel
+import dev.arch3rtemp.common_ui.customview.EmptyView
 import dev.arch3rtemp.common_ui.util.Constants
+import dev.arch3rtemp.common_ui.util.checkError
 import dev.arch3rtemp.feature.tvshow.domain.interactor.GetPopularTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.domain.interactor.SearchTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.ui.mapper.TvShowUiDomainMapper
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,11 +30,9 @@ class HomeViewModel @Inject constructor(
 
     init {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            Timber.tag(TAG).d(throwable.localizedMessage)
             setState {
-                copy(homeViewState = HomeContract.HomeViewState.Error(
-                    throwable.localizedMessage ?: ""
-                )
-                )
+                copy(homeViewState = HomeContract.HomeViewState.Error(checkError(throwable)))
             }
         }
 
@@ -46,7 +47,6 @@ class HomeViewModel @Inject constructor(
         when(event) {
             is HomeContract.Event.OnLoadTvShows -> loadTvShows(event.page, event.isRefreshing)
             is HomeContract.Event.OnSearchQuerySubmitted -> searchTvShows(event.query, event.page)
-            is HomeContract.Event.OnTvShowClicked -> TODO()
         }
     }
 
@@ -56,22 +56,32 @@ class HomeViewModel @Inject constructor(
                 copy(homeViewState = HomeContract.HomeViewState.Loading)
             }
 
-            when(val result = getPopularTvShowsInteractor(page)) {
-                is Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
-                    formatErrorMessage(result.code, result.message)
-                )
-                ) }
-                is Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
-                    result.e.localizedMessage
-                )
-                ) }
+            when (val result = getPopularTvShowsInteractor(page)) {
+
+                is Resource.Error -> {
+                    Timber.tag(TAG).d(formatErrorMessage(result.code, result.message))
+                    setState {
+                        copy(homeViewState = HomeContract.HomeViewState.Error(EmptyView.StateType.OPERATIONAL))
+                    }
+                }
+
+                is Resource.Exception -> {
+
+                    setState {
+                        copy(homeViewState = HomeContract.HomeViewState.Error(checkError(result.e)))
+                    }
+                }
+
                 is Resource.Success -> {
 
                     if (totalSearchedTvShows.isNotEmpty()) {
-                        setState { copy(homeViewState = HomeContract.HomeViewState.Success(
-                            totalSearchedTvShows
-                        )
-                        ) }
+                        setState {
+                            copy(
+                                homeViewState = HomeContract.HomeViewState.Success(
+                                    totalSearchedTvShows
+                                )
+                            )
+                        }
                         return@launch
                     }
 
@@ -100,23 +110,30 @@ class HomeViewModel @Inject constructor(
             }
 
             when(val result = searchTvShowsInteractor(query, page)) {
-                is Resource.Error -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
-                    formatErrorMessage(result.code, result.message)
-                )
-                ) }
-                is Resource.Exception -> setState { copy(homeViewState = HomeContract.HomeViewState.Error(
-                    result.e.localizedMessage
-                )
-                ) }
+                is Resource.Error -> {
+                    Timber.tag(TAG).d(formatErrorMessage(result.code, result.message))
+                    setState {
+                        copy(homeViewState = HomeContract.HomeViewState.Error(EmptyView.StateType.OPERATIONAL))
+                     }
+                }
+                is Resource.Exception -> {
+                    Timber.tag(TAG).d(result.e.localizedMessage)
+                    setState {
+                        copy(homeViewState = HomeContract.HomeViewState.Error(checkError(result.e)))
+                    }
+                }
                 is Resource.Success -> {
                     val tvShowUiList = tvShowUiDomainMapper.toList(result.data)
                     totalSearchedTvShows = totalSearchedTvShows + tvShowUiList
-                    setState { copy(homeViewState = HomeContract.HomeViewState.Success(
-                        totalSearchedTvShows
-                    )
-                    ) }
+                    setState {
+                        copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows))
+                    }
                 }
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "home_view_model"
     }
 }

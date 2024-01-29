@@ -58,7 +58,9 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
                 emptyViewStatus(EmptyView.StateType.EMPTY, null)
             }
             is HomeContract.HomeViewState.Error -> {
-                emptyViewStatus(EmptyView.StateType.OPERATIONAL, null)
+                val type = state.homeViewState.type
+                val listener = getListener(type)
+                emptyViewStatus(type, listener)
                 swipeLoaderStatus(false)
             }
             is HomeContract.HomeViewState.Success -> {
@@ -153,6 +155,16 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
 
     private fun emptyViewStatus(status: EmptyView.StateType, listener: OnClickListener?) = with(binding) {
         emptyView.emptyStateType(status, listener)
+    }
+
+    private fun getListener(type: EmptyView.StateType): OnClickListener? {
+        return if (type == EmptyView.StateType.CONNECTION) {
+            OnClickListener {
+                loadTvShows(false)
+            }
+        } else {
+            null
+        }
     }
 
     override fun onDestroyView() {

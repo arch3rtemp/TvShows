@@ -3,7 +3,9 @@ package dev.arch3rtemp.common_ui.util
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import dev.arch3rtemp.common.exception.NoInternetException
 import dev.arch3rtemp.common_ui.R
+import dev.arch3rtemp.common_ui.customview.EmptyView
 
 fun Fragment.showSnackbar(message: String, status: SnackbarStatusCodes) {
 
@@ -24,4 +26,12 @@ fun Fragment.showSnackbar(message: String, status: SnackbarStatusCodes) {
 }
 enum class SnackbarStatusCodes {
     ERROR, SUCCESS
+}
+
+fun checkError(e: Throwable): EmptyView.StateType {
+    return if (e is NoInternetException) {
+        EmptyView.StateType.CONNECTION
+    } else {
+        EmptyView.StateType.OPERATIONAL
+    }
 }
