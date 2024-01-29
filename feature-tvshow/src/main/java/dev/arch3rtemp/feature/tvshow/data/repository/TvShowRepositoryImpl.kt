@@ -48,9 +48,9 @@ class TvShowRepositoryImpl @Inject constructor(
         return Resource.Success(tvShow)
     }
 
-    override suspend fun getSimilarTvShows(seriesId: String): Resource<List<TvShow>> {
+    override suspend fun getSimilarTvShows(seriesId: String, page: Int): Resource<List<TvShow>> {
         return try {
-            val response = tvShowRemoteSource.fetchSimilarTvShows(seriesId)
+            val response = tvShowRemoteSource.fetchSimilarTvShows(seriesId, page)
             val tvShowList = response.results
 
             Resource.Success(tvShowDtoDomainMapper.fromList(tvShowList))

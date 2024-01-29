@@ -3,6 +3,7 @@ package dev.arch3rtemp.feature.tvshow.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -10,13 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.arch3rtemp.common_ui.DebounceQueryTextListener
 import dev.arch3rtemp.common_ui.base.BaseFragment
+import dev.arch3rtemp.common_ui.customview.EmptyView
 import dev.arch3rtemp.common_ui.customview.PaginationRecyclerView
 import dev.arch3rtemp.common_ui.util.Constants
 import dev.arch3rtemp.common_ui.util.SnackbarStatusCodes
 import dev.arch3rtemp.common_ui.util.showSnackbar
 import dev.arch3rtemp.feature.tvshow.R
 import dev.arch3rtemp.feature.tvshow.databinding.FragmentHomeBinding
-import dev.arch3rtemp.feature.tvshow.ui.adapter.TvShowAdapter
 import dev.arch3rtemp.feature.tvshow.ui.detail.DetailFragment
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 import dev.arch3rtemp.feature.tvshow.ui.navigation.DetailsScreenimpl
@@ -33,7 +34,7 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     @Inject
     lateinit var navigator: Navigator
 
-    private var tvShowAdapter: TvShowAdapter? = null
+    private var homeAdapter: HomeAdapter? = null
 
     private var searchView: SearchView? = null
 
@@ -45,19 +46,25 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
 
     override fun renderState(state: HomeContract.State) {
         when(state.homeViewState) {
-            HomeContract.HomeViewState.Idle -> Unit
+            HomeContract.HomeViewState.Idle -> {
+                emptyViewStatus(EmptyView.StateType.EMPTY, null)
+                swipeLoaderStatus(false)
+            }
             HomeContract.HomeViewState.Loading -> {
-//                showLoading()
+                emptyViewStatus(EmptyView.StateType.NO_ERROR, null)
+                swipeLoaderStatus(true)
             }
             HomeContract.HomeViewState.Empty -> {
-                showEmptyView()
+                emptyViewStatus(EmptyView.StateType.EMPTY, null)
             }
             is HomeContract.HomeViewState.Error -> {
-                hideEmptyView()
+                emptyViewStatus(EmptyView.StateType.OPERATIONAL, null)
+                swipeLoaderStatus(false)
             }
             is HomeContract.HomeViewState.Success -> {
-                hideEmptyView()
-                tvShowAdapter?.submitList(state.homeViewState.tvShows)
+                emptyViewStatus(EmptyView.StateType.NO_ERROR, null)
+                swipeLoaderStatus(true)
+                homeAdapter?.submitList(state.homeViewState.tvShows)
             }
         }
     }
@@ -69,7 +76,6 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun setupToolbar() = with(binding) {
-
         searchView = toolbar.menu.findItem(R.id.action_search).actionView as SearchView
         searchView?.setOnQueryTextListener(
             DebounceQueryTextListener(
@@ -89,12 +95,12 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun setupRecyclerView() = with(binding) {
-        tvShowAdapter = TvShowAdapter { tvShow ->
+        homeAdapter = HomeAdapter { tvShow ->
             navigateToDetails(tvShow)
         }
         rvTrendingList.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = tvShowAdapter
+            adapter = homeAdapter
             setOnPageChangeListener(object : PaginationRecyclerView.OnPageChangeListener {
                 override fun onPageChange(page: Int) {
                     searchView?.let {
@@ -123,10 +129,12 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun navigateToDetails(tvShow: TvShowUi) {
-        val detailScreen = DetailsScreenimpl()
-        val bundle = Bundle()
-        bundle.putParcelable(DetailFragment.ARG_TV_SHOW, tvShow)
-        detailScreen.destination(bundle)
+        val bundle = Bundle().apply {
+            putParcelable(DetailFragment.ARG_TV_SHOW, tvShow)
+        }
+        val detailScreen = DetailsScreenimpl().apply {
+            destination(bundle)
+        }
         navigator.navigateWithReplaceTo(
             detailScreen,
             allowingStateLoss = false,
@@ -135,14 +143,22 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
         )
     }
 
-    private fun showEmptyView() = with(binding) {
-        emptyView.visibility = View.VISIBLE
-        swipe.visibility = View.GONE
+    private fun swipeLoaderStatus(visibility: Boolean) = with(binding) {
+        if (visibility) {
+            swipe.visibility = View.VISIBLE
+        } else {
+            swipe.visibility = View.GONE
+        }
     }
 
-    private fun hideEmptyView() = with(binding) {
-        emptyView.visibility = View.GONE
-        swipe.visibility = View.VISIBLE
+    private fun emptyViewStatus(status: EmptyView.StateType, listener: OnClickListener?) = with(binding) {
+        emptyView.emptyStateType(status, listener)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        homeAdapter = null
     }
 
     companion object {

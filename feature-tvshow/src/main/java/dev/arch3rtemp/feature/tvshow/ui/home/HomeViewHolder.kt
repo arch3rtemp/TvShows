@@ -1,4 +1,4 @@
-package dev.arch3rtemp.feature.tvshow.ui.adapter
+package dev.arch3rtemp.feature.tvshow.ui.home
 
 import coil.load
 import dev.arch3rtemp.common.util.formatImageUrl
@@ -7,11 +7,10 @@ import dev.arch3rtemp.common_ui.base.BaseViewHolder
 import dev.arch3rtemp.feature.tvshow.databinding.TvshowViewLayoutBinding
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 
-class TvShowViewHolder(
+class HomeViewHolder(
     private val binding: TvshowViewLayoutBinding,
     private val clickListener: (TvShowUi) -> Unit
-    ) :
-    BaseViewHolder<TvShowUi, TvshowViewLayoutBinding>(binding) {
+    ) : BaseViewHolder<TvShowUi, TvshowViewLayoutBinding>(binding) {
     override fun bind() {
         getRowItem()?.let { tvShow ->
             binding.apply {

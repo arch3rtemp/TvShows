@@ -24,8 +24,7 @@ class DetailContract {
     sealed interface Event : UiEvent {
         data class OnDetailLoaded(val tvShow: TvShowUi) : Event
         data class OnDetailError(val message: String?) : Event
-        data class OnSimilarsLoaded(val seriesId: String, val page: Int) : Event
-        data class OnSimilarClicked(val tvShow: TvShowUi) : Event
+        data class OnLoadSimilars(val seriesId: String, val page: Int) : Event
     }
 
     sealed interface Effect : UiEffect {

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetSimilarTvShowsInteractor @Inject constructor(
     private val tvShowRepository: TvShowRepository
 ) {
-    suspend operator fun invoke(seriesId: String): Resource<List<TvShow>> {
-        return tvShowRepository.getSimilarTvShows(seriesId)
+    suspend operator fun invoke(seriesId: String, page: Int): Resource<List<TvShow>> {
+        return tvShowRepository.getSimilarTvShows(seriesId, page)
     }
 }

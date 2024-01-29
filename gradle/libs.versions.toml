@@ -14,6 +14,7 @@ splash = '1.0.1'
 palette = '1.0.0'
 swiperefreshlayout = "1.1.0"
 fragment = '1.6.2'
+timber = '5.0.1'
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
@@ -47,6 +48,7 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "4.1.
 robolectric = { module = "org.robolectric:robolectric", version = "4.9.2" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "gradleplugin" }

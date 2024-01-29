@@ -42,5 +42,4 @@ class OverlapLoadingView @JvmOverloads constructor(
     enum class StateType {
         ERROR, LOADING, DONE
     }
-
 }

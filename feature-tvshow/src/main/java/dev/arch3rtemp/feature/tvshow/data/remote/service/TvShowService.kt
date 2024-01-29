@@ -14,5 +14,5 @@ interface TvShowService {
     suspend fun searchTvShows(@Query("query") query: String, @Query("page") page: Int): TvShowResponse
 
     @GET("tv/{series_id}/similar")
-    suspend fun fetchSimilarTvShows(@Path("series_id") seriesId: String): TvShowResponse
+    suspend fun fetchSimilarTvShows(@Path("series_id") seriesId: String, @Query("page") page: Int): TvShowResponse
 }
