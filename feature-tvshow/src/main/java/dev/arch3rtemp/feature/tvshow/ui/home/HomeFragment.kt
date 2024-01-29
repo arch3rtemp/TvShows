@@ -20,6 +20,8 @@ import dev.arch3rtemp.feature.tvshow.ui.adapter.TvShowAdapter
 import dev.arch3rtemp.feature.tvshow.ui.detail.DetailFragment
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 import dev.arch3rtemp.feature.tvshow.ui.navigation.DetailsScreenimpl
+import dev.arch3rtemp.navigation.Navigator
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeContract.Effect, FragmentHomeBinding, HomeViewModel>() {
@@ -28,8 +30,8 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
 
     override val viewModel by viewModels<HomeViewModel>()
 
-//    @Inject
-//    lateinit var navigator: Navigator
+    @Inject
+    lateinit var navigator: Navigator
 
     private var tvShowAdapter: TvShowAdapter? = null
 
@@ -125,12 +127,12 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
         val bundle = Bundle()
         bundle.putParcelable(DetailFragment.ARG_TV_SHOW, tvShow)
         detailScreen.destination(bundle)
-//        navigator.navigateWithReplaceTo(
-//            detailScreen,
-//            allowingStateLoss = false,
-//            addToBackStack = true,
-//            allowReordering = true
-//        )
+        navigator.navigateWithReplaceTo(
+            detailScreen,
+            allowingStateLoss = false,
+            addToBackStack = true,
+            allowReordering = true
+        )
     }
 
     private fun showEmptyView() = with(binding) {

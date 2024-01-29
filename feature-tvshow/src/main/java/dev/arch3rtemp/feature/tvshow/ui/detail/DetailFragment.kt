@@ -33,9 +33,9 @@ class DetailFragment : BaseFragment<DetailContract.Event, DetailContract.State, 
                 it.getParcelable(ARG_TV_SHOW)
             }
             if (tvShow != null) {
-                DetailContract.Event.OnDetailLoaded(tvShow)
+                viewModel.setEvent(DetailContract.Event.OnDetailLoaded(tvShow))
             } else {
-                DetailContract.Event.OnDetailError(getString(R.string.operational_error_message))
+                viewModel.setEvent(DetailContract.Event.OnDetailError(getString(R.string.operational_error_message)))
             }
         }
     }
