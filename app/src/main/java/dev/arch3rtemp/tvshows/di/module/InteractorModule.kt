@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import dev.arch3rtemp.feature.tvshow.domain.interactor.GetPopularTvShowsInteractor
+import dev.arch3rtemp.feature.tvshow.domain.interactor.GetSimilarTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.domain.interactor.SearchTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.domain.repository.TvShowRepository
 
@@ -23,5 +24,11 @@ class InteractorModule {
     @ViewModelScoped
     fun provideSearchTvShowInteractor(tvShowsRepository: TvShowRepository): SearchTvShowsInteractor {
         return SearchTvShowsInteractor(tvShowsRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSimilarTvShowInteractor(tvShowRepository: TvShowRepository): GetSimilarTvShowsInteractor {
+        return GetSimilarTvShowsInteractor(tvShowRepository)
     }
 }

@@ -12,21 +12,16 @@ class DetailViewModel @Inject constructor(
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     
     init {
-        coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable -> 
-            setState { 
-                copy(detailViewState = DetailContract.DetailViewState.Error(
-                    throwable.localizedMessage ?: ""
-                )
-                )
-            }
+        coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            setEffect { DetailContract.Effect.ShowSnackBar(throwable.localizedMessage ?: "") }
         }
         
         loadSimilarTvShows(Constants.FIRST_PAGE)
     }
     override fun createInitialState(): DetailContract.State {
         return DetailContract.State(
-            detailViewState = DetailContract.DetailViewState.Idle,
-            similarsViewState = DetailContract.SimilarsViewState.Idle
+            DetailContract.DetailViewState.Idle,
+            DetailContract.SimilarsViewState.Idle
         )
     }
 

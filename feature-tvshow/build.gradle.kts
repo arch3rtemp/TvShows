@@ -40,7 +40,8 @@ android {
 
 dependencies {
 
-    api(project(":common-ui"))
+    implementation(project(":common-ui"))
+    implementation(project(":navigation"))
 
     // dagger2
 //    implementation(libs.dagger2)
@@ -51,4 +52,8 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     ksp(libs.room.compiler)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }

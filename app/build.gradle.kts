@@ -53,7 +53,9 @@ android {
 
 dependencies {
 
+    implementation(project(":common-ui"))
     implementation(project(":navigation"))
+    implementation(project(":feature-tvshow"))
 
     // dagger2
 //    implementation(libs.dagger2)

@@ -15,8 +15,11 @@ import dev.arch3rtemp.common_ui.util.Constants
 import dev.arch3rtemp.common_ui.util.SnackbarStatusCodes
 import dev.arch3rtemp.common_ui.util.showSnackbar
 import dev.arch3rtemp.feature.tvshow.R
-import dev.arch3rtemp.feature.tvshow.ui.adapter.TvShowAdapter
 import dev.arch3rtemp.feature.tvshow.databinding.FragmentHomeBinding
+import dev.arch3rtemp.feature.tvshow.ui.adapter.TvShowAdapter
+import dev.arch3rtemp.feature.tvshow.ui.detail.DetailFragment
+import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
+import dev.arch3rtemp.feature.tvshow.ui.navigation.DetailsScreenimpl
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeContract.Effect, FragmentHomeBinding, HomeViewModel>() {
@@ -24,6 +27,9 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
         get() = FragmentHomeBinding::inflate
 
     override val viewModel by viewModels<HomeViewModel>()
+
+//    @Inject
+//    lateinit var navigator: Navigator
 
     private var tvShowAdapter: TvShowAdapter? = null
 
@@ -81,7 +87,9 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun setupRecyclerView() = with(binding) {
-        tvShowAdapter = TvShowAdapter {  }
+        tvShowAdapter = TvShowAdapter { tvShow ->
+            navigateToDetails(tvShow)
+        }
         rvTrendingList.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = tvShowAdapter
@@ -112,6 +120,19 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
         }
     }
 
+    private fun navigateToDetails(tvShow: TvShowUi) {
+        val detailScreen = DetailsScreenimpl()
+        val bundle = Bundle()
+        bundle.putParcelable(DetailFragment.ARG_TV_SHOW, tvShow)
+        detailScreen.destination(bundle)
+//        navigator.navigateWithReplaceTo(
+//            detailScreen,
+//            allowingStateLoss = false,
+//            addToBackStack = true,
+//            allowReordering = true
+//        )
+    }
+
     private fun showEmptyView() = with(binding) {
         emptyView.visibility = View.VISIBLE
         swipe.visibility = View.GONE
@@ -123,11 +144,14 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     companion object {
+
+        const val TAG = "home_fragment"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment.
          *
-         * @return A new instance of fragment HomeFragment.
+         * @return - A new instance of fragment HomeFragment.
          */
         @JvmStatic
         fun newInstance() = HomeFragment()

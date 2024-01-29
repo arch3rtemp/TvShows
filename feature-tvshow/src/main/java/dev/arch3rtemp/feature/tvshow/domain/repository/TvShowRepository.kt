@@ -9,4 +9,6 @@ interface TvShowRepository {
     suspend fun searchTvShows(query: String, page: Int): Resource<List<TvShow>>
 
     suspend fun getTvShow(id: Int): Resource<TvShow>
+
+    suspend fun getSimilarTvShows(seriesId: String): Resource<List<TvShow>>
 }

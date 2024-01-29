@@ -47,4 +47,17 @@ class TvShowRepositoryImpl @Inject constructor(
         val tvShow = tvShowEntityDomainMapper.from(tvShowLocalSource.getTvShow(id))
         return Resource.Success(tvShow)
     }
+
+    override suspend fun getSimilarTvShows(seriesId: String): Resource<List<TvShow>> {
+        return try {
+            val response = tvShowRemoteSource.fetchSimilarTvShows(seriesId)
+            val tvShowList = response.results
+
+            Resource.Success(tvShowDtoDomainMapper.fromList(tvShowList))
+        } catch (e: HttpException) {
+            Resource.Error(e.code(), e.message())
+        } catch (e: Exception) {
+            Resource.Exception(e)
+        }
+    }
 }

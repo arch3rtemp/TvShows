@@ -10,7 +10,7 @@
     <string name="title_popular">Populares</string>
     <string name="title_child">Para niños</string>
 
-    <string name="operational_error_message">Al parecer un error ha ocurrido al realizar la operación</string>
+    <string name="operational_error_message">It seems an error has occurred while performing the operation</string>
     <string name="connection_error">Algo anda mal con tu conexión, checkealo!!</string>
     <string name="empty_error">Al parecer no hay nada que mostrar.</string>
 

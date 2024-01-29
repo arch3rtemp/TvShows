@@ -14,4 +14,8 @@ class TvShowRemoteSourceImpl @Inject constructor(
     override suspend fun searchTvShows(query: String, page: Int): TvShowResponse {
         return tvShowService.searchTvShows(query, page)
     }
+
+    override suspend fun fetchSimilarTvShows(seriesId: String): TvShowResponse {
+        return tvShowService.fetchSimilarTvShows(seriesId)
+    }
 }

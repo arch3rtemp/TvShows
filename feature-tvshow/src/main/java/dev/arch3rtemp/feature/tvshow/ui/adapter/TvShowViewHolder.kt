@@ -9,7 +9,7 @@ import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 
 class TvShowViewHolder(
     private val binding: TvshowViewLayoutBinding,
-    private val clickListener: (Int) -> Unit
+    private val clickListener: (TvShowUi) -> Unit
     ) :
     BaseViewHolder<TvShowUi, TvshowViewLayoutBinding>(binding) {
     override fun bind() {
@@ -21,7 +21,7 @@ class TvShowViewHolder(
                 ivMovie.load(formatImageUrl(tvShow.posterPath)) {
                     crossfade(true)
                 }
-                cardView.setOnClickListener { clickListener(tvShow.id) }
+                cardView.setOnClickListener { clickListener(tvShow) }
             }
         }
     }

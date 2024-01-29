@@ -7,7 +7,7 @@ import dev.arch3rtemp.common_ui.base.BaseRVAdapter
 import dev.arch3rtemp.feature.tvshow.databinding.TvshowViewLayoutBinding
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 
-class TvShowAdapter(private val clickListener: (Int) -> Unit)
+class TvShowAdapter(private val clickListener: (TvShowUi) -> Unit)
     : BaseRVAdapter<TvShowUi, TvshowViewLayoutBinding, TvShowViewHolder>(TV_SHOW_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
