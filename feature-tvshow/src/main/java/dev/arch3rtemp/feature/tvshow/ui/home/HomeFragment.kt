@@ -57,6 +57,7 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
             }
             HomeContract.HomeViewState.Empty -> {
                 emptyViewStatus(EmptyView.StateType.EMPTY, null)
+                swipeLoaderStatus(false)
             }
             is HomeContract.HomeViewState.Error -> {
                 val type = state.homeViewState.type

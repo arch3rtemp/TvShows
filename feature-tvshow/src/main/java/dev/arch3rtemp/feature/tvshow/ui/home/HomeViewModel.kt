@@ -118,8 +118,16 @@ class HomeViewModel @Inject constructor(
                 is Resource.Success -> {
                     val tvShowUiList = tvShowUiDomainMapper.toList(result.data)
                     totalSearchedTvShows = totalSearchedTvShows + tvShowUiList
-                    setState {
-                        copy(homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows))
+                    if (totalSearchedTvShows.isEmpty()) {
+                        setState {
+                            copy(homeViewState = HomeContract.HomeViewState.Empty)
+                        }
+                    } else {
+                        setState {
+                            copy(
+                                homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows)
+                            )
+                        }
                     }
                 }
             }

@@ -12,7 +12,7 @@
 
     <string name="operational_error_message">It seems an error has occurred while performing the operation</string>
     <string name="connection_error">Something is wrong with your connection, check please!!</string>
-    <string name="empty_error">Al parecer no hay nada que mostrar.</string>
+    <string name="empty_error">It appears there is nothing to display.</string>
 
     <string name="oops">Ooopss!!</string>
     <string name="retry">Retry</string>
