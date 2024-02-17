@@ -9,12 +9,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
-import dev.arch3rtemp.common_ui.UiAction
-import dev.arch3rtemp.common_ui.UiEffect
-import dev.arch3rtemp.common_ui.UiState
+import dev.arch3rtemp.common_ui.mvi.MviCore
+import dev.arch3rtemp.common_ui.mvi.UiAction
+import dev.arch3rtemp.common_ui.mvi.UiEffect
+import dev.arch3rtemp.common_ui.mvi.UiState
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<Action : UiAction, State : UiState, Effect : UiEffect, VB : ViewBinding, VM : BaseViewModel<Action, State, Effect>> : Fragment() {
+abstract class BaseFragment<Action : UiAction, State : UiState, Effect : UiEffect, VB : ViewBinding, VM : MviCore<State, Action, Effect>> : Fragment() {
 
     private var _binding: VB? = null
     abstract val bindLayout: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -38,7 +39,7 @@ abstract class BaseFragment<Action : UiAction, State : UiState, Effect : UiEffec
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
+                viewModel.state.collect {
                     renderState(it)
                 }
             }

@@ -1,8 +1,8 @@
 package dev.arch3rtemp.feature.tvshow.ui.detail
 
-import dev.arch3rtemp.common_ui.UiEffect
-import dev.arch3rtemp.common_ui.UiAction
-import dev.arch3rtemp.common_ui.UiState
+import dev.arch3rtemp.common_ui.mvi.UiEffect
+import dev.arch3rtemp.common_ui.mvi.UiAction
+import dev.arch3rtemp.common_ui.mvi.UiState
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 
 class DetailContract {

@@ -2,9 +2,9 @@ package dev.arch3rtemp.common_ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.arch3rtemp.common_ui.UiAction
-import dev.arch3rtemp.common_ui.UiEffect
-import dev.arch3rtemp.common_ui.UiState
+import dev.arch3rtemp.common_ui.mvi.UiAction
+import dev.arch3rtemp.common_ui.mvi.UiEffect
+import dev.arch3rtemp.common_ui.mvi.UiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

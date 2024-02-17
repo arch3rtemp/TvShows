@@ -1,8 +1,11 @@
 package dev.arch3rtemp.feature.tvshow.ui.home
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.arch3rtemp.common_ui.base.BaseViewModel
+import dev.arch3rtemp.common_ui.mvi.MviCore
+import dev.arch3rtemp.common_ui.mvi.mviDelegate
+import dev.arch3rtemp.common_ui.util.checkError
 import dev.arch3rtemp.feature.tvshow.domain.interactor.GetPopularTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.domain.interactor.SearchTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.ui.mapper.TvShowUiDomainMapper
@@ -17,7 +20,10 @@ class HomeViewModel @Inject constructor(
     private val getPopularTvShowsInteractor: GetPopularTvShowsInteractor,
     private val searchTvShowsInteractor: SearchTvShowsInteractor,
     private val tvShowUiDomainMapper: TvShowUiDomainMapper
-) : BaseViewModel<HomeContract.Action, HomeContract.State, HomeContract.Effect>() {
+) : ViewModel(),
+    MviCore<HomeContract.State, HomeContract.Action, HomeContract.Effect> by mviDelegate(
+        initialState = createInitialState()
+    ) {
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private var totalTvShows: List<TvShowUi> = emptyList()
@@ -26,17 +32,13 @@ class HomeViewModel @Inject constructor(
     init {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
             Timber.tag(TAG).d(throwable.localizedMessage)
-            setState {
+            updateState {
                 copy(homeViewState = HomeContract.HomeViewState.Error(throwable))
             }
         }
     }
 
-    override fun createInitialState(): HomeContract.State {
-        return HomeContract.State(homeViewState = HomeContract.HomeViewState.Idle)
-    }
-
-    override fun handleAction(action: HomeContract.Action) {
+    override fun onAction(action: HomeContract.Action) {
         when(action) {
             is HomeContract.Action.OnLoadTvShows -> loadTvShows(action.page, action.isRefreshing)
             is HomeContract.Action.OnSearchQuerySubmitted -> searchTvShows(action.query, action.page)
@@ -45,7 +47,7 @@ class HomeViewModel @Inject constructor(
 
     private fun loadTvShows(page: Int, isRefreshing: Boolean) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            setState {
+            updateState {
                 copy(homeViewState = HomeContract.HomeViewState.Loading)
             }
 
@@ -54,7 +56,7 @@ class HomeViewModel @Inject constructor(
                 .onSuccess { data ->
 
                     if (totalSearchedTvShows.isNotEmpty()) {
-                        setState {
+                        updateState {
                             copy(
                                 homeViewState = HomeContract.HomeViewState.Success(
                                     totalSearchedTvShows
@@ -69,11 +71,11 @@ class HomeViewModel @Inject constructor(
                     } else {
                         totalTvShows + tvShowUiList
                     }
-                    setState { copy(homeViewState = HomeContract.HomeViewState.Success(totalTvShows)) }
+                    updateState { copy(homeViewState = HomeContract.HomeViewState.Success(totalTvShows)) }
                 }
                 .onFailure { throwable ->
                     Timber.tag(TAG).d(throwable)
-                    setState {
+                    updateState {
                         copy(homeViewState = HomeContract.HomeViewState.Error(throwable))
                     }
                 }
@@ -84,12 +86,12 @@ class HomeViewModel @Inject constructor(
 
         if (query.isNullOrBlank()) {
             totalSearchedTvShows = emptyList()
-            setState { copy(homeViewState = HomeContract.HomeViewState.Success(totalTvShows)) }
+            updateState { copy(homeViewState = HomeContract.HomeViewState.Success(totalTvShows)) }
             return
         }
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            setState {
+            updateState {
                 copy(homeViewState = HomeContract.HomeViewState.Loading)
             }
 
@@ -99,21 +101,19 @@ class HomeViewModel @Inject constructor(
                     val tvShowUiList = tvShowUiDomainMapper.toList(data)
                     totalSearchedTvShows = totalSearchedTvShows + tvShowUiList
                     if (totalSearchedTvShows.isEmpty()) {
-                        setState {
+                        updateState {
                             copy(homeViewState = HomeContract.HomeViewState.Empty)
                         }
                     } else {
-                        setState {
+                        updateState {
                             copy(
-                                homeViewState = HomeContract.HomeViewState.Success(
-                                    totalSearchedTvShows
-                                )
+                                homeViewState = HomeContract.HomeViewState.Success(totalSearchedTvShows)
                             )
                         }
                     }
                 }
                 .onFailure { throwable ->
-                    setState {
+                    updateState {
                         copy(homeViewState = HomeContract.HomeViewState.Error(throwable))
                     }
                 }
@@ -122,5 +122,7 @@ class HomeViewModel @Inject constructor(
 
     companion object {
         private const val TAG = "home_view_model"
+
+        fun createInitialState() = HomeContract.State(homeViewState = HomeContract.HomeViewState.Idle)
     }
 }
