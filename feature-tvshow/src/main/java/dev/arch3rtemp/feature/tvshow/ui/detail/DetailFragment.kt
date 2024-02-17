@@ -49,9 +49,9 @@ class DetailFragment : BaseFragment<DetailContract.Action, DetailContract.State,
             seriesId = tvShow?.id.toString()
             loadSimilars()
             if (tvShow != null) {
-                viewModel.setAction(DetailContract.Action.OnDetailLoaded(tvShow))
+                viewModel.onAction(DetailContract.Action.OnDetailLoaded(tvShow))
             } else {
-                viewModel.setAction(DetailContract.Action.OnDetailError(getString(R.string.operational_error_message)))
+                viewModel.onAction(DetailContract.Action.OnDetailError(getString(R.string.operational_error_message)))
             }
         }
     }
@@ -128,12 +128,12 @@ class DetailFragment : BaseFragment<DetailContract.Action, DetailContract.State,
 
     private fun loadSimilars(page: Int = Constants.FIRST_PAGE) {
         seriesId?.let {  id ->
-            viewModel.setAction(DetailContract.Action.OnLoadSimilars(id, page))
+            viewModel.onAction(DetailContract.Action.OnLoadSimilars(id, page))
         }
     }
 
     private fun updateDetails(tvShow: TvShowUi) {
-        viewModel.setAction(DetailContract.Action.OnDetailLoaded(tvShow))
+        viewModel.onAction(DetailContract.Action.OnDetailLoaded(tvShow))
         seriesId = tvShow.id.toString()
         loadSimilars()
     }

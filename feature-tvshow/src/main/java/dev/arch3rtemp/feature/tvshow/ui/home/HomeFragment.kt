@@ -92,11 +92,11 @@ class HomeFragment : BaseFragment<HomeContract.Action, HomeContract.State, HomeC
     }
 
     private fun loadTvShows(isRefreshing: Boolean, page: Int = Constants.FIRST_PAGE) {
-        viewModel.setAction(HomeContract.Action.OnLoadTvShows(page, isRefreshing))
+        viewModel.onAction(HomeContract.Action.OnLoadTvShows(page, isRefreshing))
     }
 
     private fun searchQuery(query: String, page: Int = Constants.FIRST_PAGE) {
-        viewModel.setAction(HomeContract.Action.OnSearchQuerySubmitted(query, page))
+        viewModel.onAction(HomeContract.Action.OnSearchQuerySubmitted(query, page))
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -134,7 +134,7 @@ class HomeFragment : BaseFragment<HomeContract.Action, HomeContract.State, HomeC
     }
 
     private fun setInitState() {
-        viewModel.setAction(HomeContract.Action.OnLoadTvShows(Constants.FIRST_PAGE, false))
+        viewModel.onAction(HomeContract.Action.OnLoadTvShows(Constants.FIRST_PAGE, false))
     }
 
     private fun navigateToDetails(tvShow: TvShowUi) {
