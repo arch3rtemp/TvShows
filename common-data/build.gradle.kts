@@ -38,10 +38,6 @@ dependencies {
 
     api(project(":common"))
 
-    // dagger2
-//    implementation(libs.dagger2)
-//    ksp(libs.dagger2.compiler)
-
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

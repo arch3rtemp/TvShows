@@ -37,8 +37,4 @@ dependencies {
     implementation(project(":common-ui"))
 
     implementation(libs.javax.inject)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 }

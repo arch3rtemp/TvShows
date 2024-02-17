@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 rootProject.name = "TvShows"
 include(":app")
 include(":common")
+include(":common-data")
 include(":common-ui")
 include(":navigation")
 include(":feature-tvshow")
-include(":common-data")
