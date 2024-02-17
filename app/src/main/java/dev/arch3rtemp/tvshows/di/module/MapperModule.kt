@@ -4,7 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.arch3rtemp.common.exception.ErrorMapper
 import dev.arch3rtemp.common.mapper.Mapper
+import dev.arch3rtemp.common_data.exception.DefaultErrorMapper
 import dev.arch3rtemp.feature.tvshow.data.local.entity.TvShowEntity
 import dev.arch3rtemp.feature.tvshow.data.mapper.TvShowDtoDomainMapper
 import dev.arch3rtemp.feature.tvshow.data.mapper.TvShowEntityDomainMapper
@@ -29,4 +31,7 @@ abstract class MapperModule {
     @Binds
     @Singleton
     abstract fun bindTvShowUiDomainModel(mapper: TvShowUiDomainMapper): Mapper<TvShowUi, TvShow>
+
+    @Binds
+    abstract fun bindErrorMapper(errorMapper: DefaultErrorMapper): ErrorMapper
 }

@@ -2,13 +2,11 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
-    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "dev.arch3rtemp.feature.tvshow"
+    namespace = "dev.arch3rtemp.common_data"
     compileSdk = 34
 
     defaultConfig {
@@ -18,9 +16,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -41,9 +36,7 @@ android {
 
 dependencies {
 
-    implementation(project(":common-data"))
-    implementation(project(":common-ui"))
-    implementation(project(":navigation"))
+    api(project(":common"))
 
     // dagger2
 //    implementation(libs.dagger2)
@@ -51,11 +44,20 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
+    // retrofit
+    api(libs.retrofit2)
+    api(libs.converter.moshi)
+
+    // room
+    api(libs.room.runtime)
     ksp(libs.room.compiler)
+    api(libs.room.ktx)
+    api(libs.room.paging)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    // moshi
+    api(libs.moshi)
+    api(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 }

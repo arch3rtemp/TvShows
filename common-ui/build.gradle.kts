@@ -52,10 +52,6 @@ dependencies {
     // google
     api(libs.material)
 
-    // retrofit
-    api(libs.retrofit2)
-    api(libs.converter.moshi)
-
     // dagger2
 //    implementation(libs.dagger2)
 //    ksp(libs.dagger2.compiler)
@@ -63,17 +59,6 @@ dependencies {
     // hilt
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
-
-    // room
-    api(libs.room.runtime)
-    ksp(libs.room.compiler)
-    api(libs.room.ktx)
-    api(libs.room.paging)
-
-    // moshi
-    api(libs.moshi)
-    api(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
 
     // coil
     api(libs.coil)

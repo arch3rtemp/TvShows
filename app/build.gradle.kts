@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
+    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
 
@@ -54,6 +55,7 @@ android {
 dependencies {
 
     implementation(project(":common-ui"))
+    implementation(project(":common-data"))
     implementation(project(":navigation"))
     implementation(project(":feature-tvshow"))
 
@@ -63,7 +65,7 @@ dependencies {
 
     // hilt
     implementation(libs.hilt)
-    ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     ksp(libs.room.compiler)
 }

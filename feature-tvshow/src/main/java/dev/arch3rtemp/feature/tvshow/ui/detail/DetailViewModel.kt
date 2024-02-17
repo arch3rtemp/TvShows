@@ -2,8 +2,6 @@ package dev.arch3rtemp.feature.tvshow.ui.detail
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.arch3rtemp.common.util.Resource
-import dev.arch3rtemp.common.util.formatErrorMessage
 import dev.arch3rtemp.common_ui.base.BaseViewModel
 import dev.arch3rtemp.feature.tvshow.domain.interactor.GetSimilarTvShowsInteractor
 import dev.arch3rtemp.feature.tvshow.ui.mapper.TvShowUiDomainMapper
@@ -51,36 +49,43 @@ class DetailViewModel @Inject constructor(
                 loadSimilarTvShows(action.seriesId, action.page) }
         }
     }
-    
+
     private fun loadSimilarTvShows(seriesId: String, page: Int) {
+
         viewModelScope.launch(coroutineExceptionHandler) {
+
             setState {
                 copy(similarsViewState = DetailContract.SimilarsViewState.Loading)
             }
 
-            when(val result = getSimilarTvShowsInteractor(seriesId, page)) {
-                is Resource.Error -> {
-                    setState {
-                        copy(similarsViewState = DetailContract.SimilarsViewState.Error(
-                            formatErrorMessage(result.code, result.message)
-                        ))
-                    }
-                }
-                is Resource.Exception -> {
-                    setState {
-                        copy(similarsViewState = DetailContract.SimilarsViewState.Error(result.e.localizedMessage))
-                    }
-                }
-                is Resource.Success -> setState {
-                    val tvShowList = tvShowUiDomainMapper.toList(result.data)
+            val result = getSimilarTvShowsInteractor(seriesId, page)
+            result
+                .onSuccess { data ->
+                    val tvShowList = tvShowUiDomainMapper.toList(data)
                     Timber.tag(TAG).d(tvShowList.isEmpty().toString())
                     if (tvShowList.isEmpty()) {
-                        copy(similarsViewState = DetailContract.SimilarsViewState.Empty)
+                        setState {
+                            copy(similarsViewState = DetailContract.SimilarsViewState.Empty)
+                        }
                     } else {
-                        copy(similarsViewState = DetailContract.SimilarsViewState.Success(tvShowList))
+                        setState {
+                            copy(
+                                similarsViewState = DetailContract.SimilarsViewState.Success(
+                                    tvShowList
+                                )
+                            )
+                        }
                     }
                 }
-            }
+                .onFailure { throwable ->
+                    setState {
+                        copy(
+                            similarsViewState = DetailContract.SimilarsViewState.Error(
+                                throwable.localizedMessage
+                            )
+                        )
+                    }
+                }
         }
     }
 

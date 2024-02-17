@@ -2,10 +2,6 @@ package dev.arch3rtemp.navigation
 
 import androidx.fragment.app.FragmentManager
 
-/**
- * Created by alievlad on 11/9/2021.
- */
-
 fun FragmentManager.clearBackStack() {
 
     if (backStackEntryCount > 0) {

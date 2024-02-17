@@ -15,6 +15,7 @@ import dev.arch3rtemp.common_ui.customview.EmptyView
 import dev.arch3rtemp.common_ui.customview.PaginationRecyclerView
 import dev.arch3rtemp.common_ui.util.Constants
 import dev.arch3rtemp.common_ui.util.SnackbarStatusCodes
+import dev.arch3rtemp.common_ui.util.checkError
 import dev.arch3rtemp.common_ui.util.showSnackbar
 import dev.arch3rtemp.feature.tvshow.R
 import dev.arch3rtemp.feature.tvshow.databinding.FragmentHomeBinding
@@ -60,7 +61,7 @@ class HomeFragment : BaseFragment<HomeContract.Action, HomeContract.State, HomeC
                 swipeLoaderStatus(false)
             }
             is HomeContract.HomeViewState.Error -> {
-                val type = state.homeViewState.type
+                val type = checkError(state.homeViewState.throwable)
                 val listener = getListener(type)
                 emptyViewStatus(type, listener)
                 swipeLoaderStatus(false)

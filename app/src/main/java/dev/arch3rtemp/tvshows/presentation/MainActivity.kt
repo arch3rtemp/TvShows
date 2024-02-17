@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         navigator.navigateWithReplaceTo(
             homeScreen,
             allowingStateLoss = false,
-            addToBackStack = true,
+            addToBackStack = false,
             allowReordering = true
         )
     }
