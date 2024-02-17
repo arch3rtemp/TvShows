@@ -25,7 +25,7 @@ import dev.arch3rtemp.navigation.Navigator
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeContract.Effect, FragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : BaseFragment<HomeContract.Action, HomeContract.State, HomeContract.Effect, FragmentHomeBinding, HomeViewModel>() {
     override val bindLayout: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
 
@@ -91,11 +91,11 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun loadTvShows(isRefreshing: Boolean, page: Int = Constants.FIRST_PAGE) {
-        viewModel.setEvent(HomeContract.Event.OnLoadTvShows(page, isRefreshing))
+        viewModel.setEvent(HomeContract.Action.OnLoadTvShows(page, isRefreshing))
     }
 
     private fun searchQuery(query: String, page: Int = Constants.FIRST_PAGE) {
-        viewModel.setEvent(HomeContract.Event.OnSearchQuerySubmitted(query, page))
+        viewModel.setEvent(HomeContract.Action.OnSearchQuerySubmitted(query, page))
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -133,7 +133,7 @@ class HomeFragment : BaseFragment<HomeContract.Event, HomeContract.State, HomeCo
     }
 
     private fun setInitState() {
-        viewModel.setEvent(HomeContract.Event.OnLoadTvShows(Constants.FIRST_PAGE, false))
+        viewModel.setEvent(HomeContract.Action.OnLoadTvShows(Constants.FIRST_PAGE, false))
     }
 
     private fun navigateToDetails(tvShow: TvShowUi) {

@@ -23,7 +23,7 @@ import dev.arch3rtemp.navigation.Navigator
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailFragment : BaseFragment<DetailContract.Event, DetailContract.State, DetailContract.Effect, FragmentDetailBinding, DetailViewModel>() {
+class DetailFragment : BaseFragment<DetailContract.Action, DetailContract.State, DetailContract.Effect, FragmentDetailBinding, DetailViewModel>() {
     override val bindLayout: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDetailBinding
         get() = FragmentDetailBinding::inflate
 
@@ -49,9 +49,9 @@ class DetailFragment : BaseFragment<DetailContract.Event, DetailContract.State, 
             seriesId = tvShow?.id.toString()
             loadSimilars()
             if (tvShow != null) {
-                viewModel.setEvent(DetailContract.Event.OnDetailLoaded(tvShow))
+                viewModel.setEvent(DetailContract.Action.OnDetailLoaded(tvShow))
             } else {
-                viewModel.setEvent(DetailContract.Event.OnDetailError(getString(R.string.operational_error_message)))
+                viewModel.setEvent(DetailContract.Action.OnDetailError(getString(R.string.operational_error_message)))
             }
         }
     }
@@ -128,12 +128,12 @@ class DetailFragment : BaseFragment<DetailContract.Event, DetailContract.State, 
 
     private fun loadSimilars(page: Int = Constants.FIRST_PAGE) {
         seriesId?.let {  id ->
-            viewModel.setEvent(DetailContract.Event.OnLoadSimilars(id, page))
+            viewModel.setEvent(DetailContract.Action.OnLoadSimilars(id, page))
         }
     }
 
     private fun updateDetails(tvShow: TvShowUi) {
-        viewModel.setEvent(DetailContract.Event.OnDetailLoaded(tvShow))
+        viewModel.setEvent(DetailContract.Action.OnDetailLoaded(tvShow))
         seriesId = tvShow.id.toString()
         loadSimilars()
     }

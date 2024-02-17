@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val getPopularTvShowsInteractor: GetPopularTvShowsInteractor,
     private val searchTvShowsInteractor: SearchTvShowsInteractor,
     private val tvShowUiDomainMapper: TvShowUiDomainMapper
-) : BaseViewModel<HomeContract.Event, HomeContract.State, HomeContract.Effect>() {
+) : BaseViewModel<HomeContract.Action, HomeContract.State, HomeContract.Effect>() {
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private var totalTvShows: List<TvShowUi> = emptyList()
@@ -40,10 +40,10 @@ class HomeViewModel @Inject constructor(
         return HomeContract.State(homeViewState = HomeContract.HomeViewState.Idle)
     }
 
-    override fun handleEvent(event: HomeContract.Event) {
+    override fun handleEvent(event: HomeContract.Action) {
         when(event) {
-            is HomeContract.Event.OnLoadTvShows -> loadTvShows(event.page, event.isRefreshing)
-            is HomeContract.Event.OnSearchQuerySubmitted -> searchTvShows(event.query, event.page)
+            is HomeContract.Action.OnLoadTvShows -> loadTvShows(event.page, event.isRefreshing)
+            is HomeContract.Action.OnSearchQuerySubmitted -> searchTvShows(event.query, event.page)
         }
     }
 

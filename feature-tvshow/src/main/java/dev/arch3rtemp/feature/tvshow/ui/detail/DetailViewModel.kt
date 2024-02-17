@@ -16,7 +16,7 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val getSimilarTvShowsInteractor: GetSimilarTvShowsInteractor,
     private val tvShowUiDomainMapper: TvShowUiDomainMapper
-) : BaseViewModel<DetailContract.Event, DetailContract.State, DetailContract.Effect>() {
+) : BaseViewModel<DetailContract.Action, DetailContract.State, DetailContract.Effect>() {
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     
@@ -33,20 +33,20 @@ class DetailViewModel @Inject constructor(
         )
     }
 
-    override fun handleEvent(event: DetailContract.Event) {
+    override fun handleEvent(event: DetailContract.Action) {
         when(event) {
-            is DetailContract.Event.OnDetailLoaded -> {
+            is DetailContract.Action.OnDetailLoaded -> {
                 setState { 
                     copy(detailViewState = DetailContract.DetailViewState.Success(event.tvShow))
                 }
             }
-            is DetailContract.Event.OnDetailError -> {
+            is DetailContract.Action.OnDetailError -> {
                 setState { 
                     copy(detailViewState = DetailContract.DetailViewState.Error(event.message))
                 }
                 if (event.message != null) setEffect { DetailContract.Effect.ShowSnackBar(event.message) }
             }
-            is DetailContract.Event.OnLoadSimilars -> {
+            is DetailContract.Action.OnLoadSimilars -> {
                 Timber.tag(TAG).d("OnLoadSimilars")
                 loadSimilarTvShows(event.seriesId, event.page) }
         }

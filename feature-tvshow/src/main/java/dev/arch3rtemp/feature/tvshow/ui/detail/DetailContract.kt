@@ -1,7 +1,7 @@
 package dev.arch3rtemp.feature.tvshow.ui.detail
 
 import dev.arch3rtemp.common_ui.UiEffect
-import dev.arch3rtemp.common_ui.UiEvent
+import dev.arch3rtemp.common_ui.UiAction
 import dev.arch3rtemp.common_ui.UiState
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
 
@@ -21,10 +21,10 @@ class DetailContract {
         data class Success(val similarShows: List<TvShowUi> = emptyList()) : SimilarsViewState
     }
 
-    sealed interface Event : UiEvent {
-        data class OnDetailLoaded(val tvShow: TvShowUi) : Event
-        data class OnDetailError(val message: String?) : Event
-        data class OnLoadSimilars(val seriesId: String, val page: Int) : Event
+    sealed interface Action : UiAction {
+        data class OnDetailLoaded(val tvShow: TvShowUi) : Action
+        data class OnDetailError(val message: String?) : Action
+        data class OnLoadSimilars(val seriesId: String, val page: Int) : Action
     }
 
     sealed interface Effect : UiEffect {
