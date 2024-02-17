@@ -33,22 +33,22 @@ class DetailViewModel @Inject constructor(
         )
     }
 
-    override fun handleEvent(event: DetailContract.Action) {
-        when(event) {
+    override fun handleAction(action: DetailContract.Action) {
+        when(action) {
             is DetailContract.Action.OnDetailLoaded -> {
                 setState { 
-                    copy(detailViewState = DetailContract.DetailViewState.Success(event.tvShow))
+                    copy(detailViewState = DetailContract.DetailViewState.Success(action.tvShow))
                 }
             }
             is DetailContract.Action.OnDetailError -> {
                 setState { 
-                    copy(detailViewState = DetailContract.DetailViewState.Error(event.message))
+                    copy(detailViewState = DetailContract.DetailViewState.Error(action.message))
                 }
-                if (event.message != null) setEffect { DetailContract.Effect.ShowSnackBar(event.message) }
+                if (action.message != null) setEffect { DetailContract.Effect.ShowSnackBar(action.message) }
             }
             is DetailContract.Action.OnLoadSimilars -> {
                 Timber.tag(TAG).d("OnLoadSimilars")
-                loadSimilarTvShows(event.seriesId, event.page) }
+                loadSimilarTvShows(action.seriesId, action.page) }
         }
     }
     

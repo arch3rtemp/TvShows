@@ -25,8 +25,8 @@ abstract class BaseViewModel<Action : UiAction, State : UiState, Effect : UiEffe
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-    private val _event: MutableSharedFlow<Action> = MutableSharedFlow()
-    val event = _event.asSharedFlow()
+    private val _action: MutableSharedFlow<Action> = MutableSharedFlow()
+    val action = _action.asSharedFlow()
 
     private val _effect: Channel<Effect> = Channel()
     val effect = _effect.receiveAsFlow()
@@ -37,17 +37,17 @@ abstract class BaseViewModel<Action : UiAction, State : UiState, Effect : UiEffe
 
     private fun subscribeEvents() {
         viewModelScope.launch {
-            event.collect {
-                handleEvent(it)
+            action.collect {
+                handleAction(it)
             }
         }
     }
 
-    abstract fun handleEvent(event: Action)
+    abstract fun handleAction(action: Action)
 
-    fun setEvent(event: Action) {
-        val newEvent = event
-        viewModelScope.launch { _event.emit(newEvent) }
+    fun setAction(action: Action) {
+        val newAction = action
+        viewModelScope.launch { _action.emit(newAction) }
     }
 
     protected fun setState(reduce: State.() -> State) {

@@ -40,10 +40,10 @@ class HomeViewModel @Inject constructor(
         return HomeContract.State(homeViewState = HomeContract.HomeViewState.Idle)
     }
 
-    override fun handleEvent(event: HomeContract.Action) {
-        when(event) {
-            is HomeContract.Action.OnLoadTvShows -> loadTvShows(event.page, event.isRefreshing)
-            is HomeContract.Action.OnSearchQuerySubmitted -> searchTvShows(event.query, event.page)
+    override fun handleAction(action: HomeContract.Action) {
+        when(action) {
+            is HomeContract.Action.OnLoadTvShows -> loadTvShows(action.page, action.isRefreshing)
+            is HomeContract.Action.OnSearchQuerySubmitted -> searchTvShows(action.query, action.page)
         }
     }
 
