@@ -7,9 +7,10 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.com.android.application) apply false
-    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
-    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
-    alias(libs.plugins.com.google.devtools.ksp) apply false
+    alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.jetbrainsKotlinJvm) apply false
+    alias(libs.plugins.googleDevtoolsKsp) apply false
+    alias(libs.plugins.daggerHiltAndroid) apply false
 }
