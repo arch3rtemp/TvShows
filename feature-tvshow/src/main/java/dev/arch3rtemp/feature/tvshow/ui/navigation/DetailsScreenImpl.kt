@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import dev.arch3rtemp.feature.tvshow.ui.detail.DetailFragment
 import dev.arch3rtemp.navigation.screens.DetailsScreen
 
-class DetailsScreenimpl : DetailsScreen {
+class DetailsScreenImpl : DetailsScreen {
     override var destinationFragment: Fragment? = null
 
     override val tag = DetailFragment.TAG

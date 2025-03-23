@@ -32,7 +32,7 @@ class TvShowRepositoryImpl @Inject constructor(
 
     override suspend fun getTvShow(id: Int): Result<TvShow> = runCatching {
         tvShowEntityDomainMapper.from(tvShowLocalSource.getTvShow(id))
-    }
+    }.mapError(errorMapper::invoke)
 
     override suspend fun getSimilarTvShows(seriesId: String, page: Int): Result<List<TvShow>> = runCatching {
         val response = tvShowRemoteSource.fetchSimilarTvShows(seriesId, page)

@@ -21,7 +21,7 @@ import dev.arch3rtemp.feature.tvshow.R
 import dev.arch3rtemp.feature.tvshow.databinding.FragmentHomeBinding
 import dev.arch3rtemp.feature.tvshow.ui.detail.DetailFragment
 import dev.arch3rtemp.feature.tvshow.ui.model.TvShowUi
-import dev.arch3rtemp.feature.tvshow.ui.navigation.DetailsScreenimpl
+import dev.arch3rtemp.feature.tvshow.ui.navigation.DetailsScreenImpl
 import dev.arch3rtemp.navigation.Navigator
 import javax.inject.Inject
 
@@ -141,7 +141,7 @@ class HomeFragment : BaseFragment<HomeContract.Action, HomeContract.State, HomeC
         val bundle = Bundle().apply {
             putParcelable(DetailFragment.ARG_TV_SHOW, tvShow)
         }
-        val detailScreen = DetailsScreenimpl().apply {
+        val detailScreen = DetailsScreenImpl().apply {
             destination(bundle)
         }
         navigator.navigateWithReplaceTo(
